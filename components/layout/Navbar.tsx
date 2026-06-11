@@ -2,7 +2,11 @@ import Image from "next/image";
 import logo from "../../public/pirituba.logo.png";
 import Link from "next/link";
 
-export default function Navbar() {
+interface NavbarProps {
+  onOpenModal: () => void;
+}
+
+export default function Navbar({ onOpenModal }: NavbarProps) {
   return (
     <section className="w-full min-h-[calc(100vh)] grid grid-cols-1 md:grid-cols-2">
       {/* Lado Esquerdo */}
@@ -15,7 +19,7 @@ export default function Navbar() {
       </div>
 
       {/* Lado Direito */}
-      <div className="bg-dark flex flex-col justify-center px-8 py-23 sm:px-16 lg:px-24 text-neutral ">
+      <aside className="bg-dark flex flex-col justify-center px-8 py-23 sm:px-16 lg:px-24 text-neutral ">
         <div className="max-w-md mx-auto md:mx-0">
           <div className="text-neutral text-5xl mb-6 font-light">✱</div>
           <h1 className="text-5xl sm:text-6xl font-black tracking-tight mb-6 leading-none">
@@ -30,15 +34,21 @@ export default function Navbar() {
 
           {/* Botão de Ação */}
           <div>
-            <Link
+            {/* <Link
               href="/cadastro"
               className="inline-block bg-green-medium text-dark hover:bg-eco hover:scale-[1.02] active:scale-[0.98] font-semibold text-center px-14 py-4 rounded-full transition-all duration-200 shadow-md w-full sm:w-auto"
             >
               Cadastre-se
-            </Link>
+            </Link> */}
+            <button
+              onClick={onOpenModal}
+              className="inline-block bg-green-medium text-dark hover:bg-eco hover:scale-[1.02] active:scale-[0.98] font-semibold text-center px-14 py-4 rounded-full transition-all duration-200 shadow-md w-full sm:w-auto"
+            >
+              Venha Fazer Parte
+            </button>
           </div>
         </div>
-      </div>
+      </aside>
     </section>
   );
 }
