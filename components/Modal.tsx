@@ -2,7 +2,7 @@
 
 import { HiX } from "react-icons/hi";
 import { useState } from "react";
-import Card from "./Card";
+import Timeline from "./Timeline";
 
 interface RegisterModalProps {
   isOpen: boolean;
@@ -42,78 +42,65 @@ export default function Modal({ isOpen, onClose }: RegisterModalProps) {
   const dadosServicos = [
     {
       id: 1,
-      frequencia: "Semanal",
-      turno: "Diurno",
-      horario: "06:00 às 14:20",
-      datas: [
-        "20/06/2026",
-        "04/07/2026",
-        "20/07/2026",
-        "05/08/2026",
-        "19/08/2026",
-      ],
+      name: "Coleta Seletiva",
+      descricao: "Coleta de lixo comum e de recicláveis",
+      frequencia: "Trissemanal",
+      horario: "11:00 às 12:00",
+      datas: ["12/06/2026", "15/06/2026", "17/06/2026"],
     },
     {
       id: 2,
+      name: "Cata Bagulho",
+      descricao: "Recolhimento de resíduos de grande volume",
       frequencia: "Quinzenal",
-      turno: "Diurno",
       horario: "06:00 às 14:20",
-      datas: [
-        "21/06/2026",
-        "05/07/2026",
-        "21/07/2026",
-        "06/08/2026",
-        "20/08/2026",
-      ],
+      datas: ["20/06/2026", "04/07/2026", "20/07/2026"],
     },
     {
       id: 3,
+      name: "Coleta de vidros",
+      descricao: "Descarte voluntário de vidros",
       frequencia: "Mensal",
-      turno: "Noturno",
       horario: "18:00 às 22:00",
-      datas: ["22/06/2026", "29/06/2026", "06/07/2026", "13/07/2026"],
+      datas: ["22/06/2026", "20/07/2026", "06/08/2026"],
     },
   ];
 
   return (
     <section className="fixed inset-0 z-50 w-full h-screen grid grid-cols-1 md:grid-cols-2 bg-dark overflow-y-auto md:overflow-hidden">
-      {/* Lado Esquerdo - Informação (Oculto em mobile, visível a partir de md:) */}
-      {/* <article className="bg-green text-dark hidden md:flex flex-col justify-center p-12 lg:p-20 space-y-6 overflow-y-auto h-full">
-        <div className="space-y-2">
-          <h1 className="text-3xl font-black tracking-tight lg:text-4xl">
-            Atualizações
-          </h1>
-          <p className="text-sm lg:text-base opacity-90 leading-relaxed">
-            Aqui você encontra informações sobre o descarte responsável de
-            resíduos na sua região.
-          </p>
-        </div>
-      </article> */}{" "}
+      {/* Lado Esquerdo */}
       <article className="bg-green text-dark hidden md:flex flex-col justify-center p-12 lg:p-20 space-y-6 overflow-y-auto h-full">
         <div className="space-y-2">
           <h1 className="text-3xl font-black tracking-tight lg:text-4xl">
             Atualizações
           </h1>
           <p className="text-sm lg:text-base opacity-90 leading-relaxed">
-            Aqui você encontra informações sobre o descarte responsável de
-            resíduos na sua região.
+            Aqui você encontra informações sobre os dias e horários em que os
+            caminhões passam na porta da sua casa.
           </p>
         </div>
 
-        {/* Renderização dinâmica usando o novo componente */}
+        {/* RENDERIZAÇÃO */}
         <div className="space-y-4 max-h-[60vh] pr-2 overflow-y-auto custom-scrollbar">
           {dadosServicos.map((servico) => (
-            <Card
+            <Timeline
               key={servico.id}
+              servico={servico.name}
+              descricao={servico.descricao}
               frequencia={servico.frequencia}
-              turno={servico.turno}
               horario={servico.horario}
               datas={servico.datas}
             />
           ))}
         </div>
+        <p className="text-xs font-semibold text-dark ">
+          Observação: Além de ajudar o meio ambiente e contribui com a limpeza e
+          em nosso bairro, utilizar os serviços disponibilizados corretamente
+          evita multas da prefeitura que podem superar o valor de R$ 25 mil por
+          descarte irregular.
+        </p>
       </article>
-      {/* Lado Direito - Formulario */}
+      {/* Lado Direito */}
       <div className="grid place-items-center p-4 md:p-8 h-full overflow-y-auto">
         <aside className="bg-white w-full max-w-md rounded-2xl shadow-2xl relative overflow-hidden border border-gray-100">
           <button
@@ -124,17 +111,16 @@ export default function Modal({ isOpen, onClose }: RegisterModalProps) {
             <HiX size={20} />
           </button>
 
-          {/* Header do Form */}
-          <div className="pt-8 px-6 text-center">
+          {/* Form */}
+          <header className="pt-8 px-6 text-center">
             <h2 className="text-xl font-extrabold text-dark tracking-tight">
               Cadastre-se e receba atualizações
             </h2>
             <p className="text-xs text-gray-500 mt-1">
-              Preencha os campos abaixo e receba os horários semanalmente.
+              Preencha os campos abaixo e receba atualizações sobre as coletas.
             </p>
-          </div>
+          </header>
 
-          {/* Form */}
           <form onSubmit={handleSubmit} className="p-6 space-y-4">
             <div className="space-y-3">
               <input
@@ -204,94 +190,3 @@ export default function Modal({ isOpen, onClose }: RegisterModalProps) {
     </section>
   );
 }
-
-//  <div className="fixed inset-0 z-50 bg-dark flex items-center justify-center p-4">
-//       <div className="bg-white w-full max-w-lg rounded-2xl shadow-xl">
-//         {/* Header */}
-//         <div className="flex items-center justify-between p-6 border-b">
-//           <h2 className="w-full text-center text-xl font-bold text-dark">
-//             Cadastre-se e receba atualizações
-//           </h2>
-
-//           <button onClick={onClose}>
-//             <HiX size={24} />
-//           </button>
-//         </div>
-
-//         {/* Form */}
-//         <form onSubmit={handleSubmit} className="p-6 space-y-4">
-//           <div>
-//             <input
-//               type="text"
-//               name="name"
-//               placeholder="Nome:"
-//               required
-//               value={formData.name}
-//               onChange={handleChange}
-//               className="w-full border rounded-full px-4 py-2"
-//             />
-//           </div>
-
-//           <div>
-//             {/* <label className="block mb-1 text-sm font-medium">E-mail</label> */}
-
-//             <input
-//               type="email"
-//               name="email"
-//               placeholder="Email:"
-//               required
-//               value={formData.email}
-//               onChange={handleChange}
-//               className="w-full border rounded-full px-4 py-2"
-//             />
-//           </div>
-
-//           <div>
-//             <input
-//               type="tel"
-//               name="phone"
-//               placeholder="Telefone:"
-//               required
-//               value={formData.phone}
-//               onChange={handleChange}
-//               className="w-full border rounded-full px-4 py-2"
-//             />
-//           </div>
-
-//           <div>
-//             <input
-//               type="text"
-//               name="address"
-//               placeholder="Endereço:"
-//               value={formData.address}
-//               onChange={handleChange}
-//               className="w-full border rounded-full px-4 py-2"
-//             />
-//           </div>
-
-//           <div>
-//             <label className="block mb-1 text-sm font-medium">
-//               Como deseja receber informações?
-//             </label>
-
-//             <select
-//               name="contactMethod"
-//               value={formData.contactMethod}
-//               onChange={handleChange}
-//               className="w-full border bg-green rounded-full px-4 py-2"
-//             >
-//               <option value="email">E-mail</option>
-//               <option value="whatsapp">WhatsApp</option>
-//             </select>
-//           </div>
-
-//           <button
-//             type="submit"
-//             // className="inline-block bg-green-medium text-dark hover:bg-eco hover:scale-[1.02] active:scale-[0.98] font-semibold text-center px-14 py-4 rounded-full transition-all duration-200 shadow-md w-full sm:w-auto"
-//             className="w-full bg-green-medium text-dark hover:bg-eco hover:scale-[1.02] active:scale-[0.98] font-semibold text-center rounded-full transition-all duration-200 shadow-md py-3"
-//           >
-//             Quero Participar
-//           </button>
-//         </form>
-//       </div>
-//     </div>
