@@ -22,17 +22,18 @@ Embora existam canais oficiais para consulta de horários de coleta e descarte a
 Diante desse cenário, o Eco Vista Linda foi desenvolvido para reunir informações relevantes em um ambiente simples, acessível e voltado à realidade da comunidade local.
 
 
-## Features
+## Funcionalidades
 
-- Light/dark mode toggle
-- Live previews
-- Fullscreen mode
-- Cross platform
+- Página institucional do projeto;
+- Exibição de informações sobre coleta de resíduos;
+- Cadastro de moradores através de formulário;
+- Armazenamento dos dados em banco de dados;
+- Interface responsiva para dispositivos móveis e desktop.
 
 
-## Demo
+## Projeto
 
-Insert gif or link to demo
+Visualize o projeto aqui: https://eco-vista-linda.netlify.app/
 
 
 ## Tecnologias Utilizadas
@@ -44,6 +45,10 @@ Insert gif or link to demo
 - Firebase Firestore
 - React Icons
 
-## Authors
+## Futuras Implementações
 
-- [@octokatherine](https://www.github.com/octokatherine)
+- Página de notícias relacionadas à limpeza urbana local;
+- Estatísticas com dados de resultado de ações na comunidade;
+- Canal colaborativo para denúncias de descarte irregular;
+- Sistema de notificações de atualização por e-mail e WhatsApp;
+
