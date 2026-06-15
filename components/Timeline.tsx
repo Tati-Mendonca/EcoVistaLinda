@@ -1,4 +1,4 @@
-import { HiTruck } from "react-icons/hi";
+import { TimelineData } from "@/types/timeline";
 
 export default function Timeline({
   servico,
@@ -6,8 +6,8 @@ export default function Timeline({
   frequencia,
   horario,
   datas,
-}) {
-  const formatarData = (dataStr, index) => {
+}: TimelineData) {
+  const formatarData = (dataStr: string, index: number) => {
     if (index === 0) {
       return (
         <div className="flex items-center gap-2">
@@ -58,20 +58,15 @@ export default function Timeline({
             />
 
             <div>{formatarData(data, index)}</div>
-
-            <span
-              className="text-xs text-dark/50 font-medium hidden 
-            sm:inline"
-            >
-              {index === 0 && (
-                <span className="text-xs text-eco font-semibold">
-                  Próxima Coleta
-                </span>
-              )}
-              {index !== 0 && (
-                <span className="text-xs text-dark/50">Agendada</span>
-              )}
-            </span>
+            {index === 0 ? (
+              <span className="text-xs text-eco font-semibold hidden sm:inline">
+                Próxima Coleta
+              </span>
+            ) : (
+              <span className="text-xs text-dark/50 hidden sm:inline">
+                Agendada
+              </span>
+            )}
           </div>
         ))}
       </div>
