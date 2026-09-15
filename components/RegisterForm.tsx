@@ -2,7 +2,15 @@
 
 import { useState } from "react";
 import { db } from "../firebase/firebase.config";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, doc, writeBatch } from "firebase/firestore";
+import {
+  removeMask,
+  isNumeric,
+  validPhoneNumber,
+  validateFullName,
+  isText,
+} from "@/utils/formValidation";
+import { toast } from "react-hot-toast";
 
 interface RegisterFormProps {
   onSuccess: () => void;
@@ -21,27 +29,62 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
+    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value,
+      [name]: name === "phone" ? isNumeric(value) : value,
     });
   };
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!isText(formData.name)) {
+      toast.error("O campo nome deve conter apenas letras!");
+      return;
+    }
+    if (!validateFullName(formData.name)) {
+      toast.error("Por favor, insira seu nome e sobrenome!");
+      return;
+    }
+
+    if (!validPhoneNumber(formData.phone)) {
+      toast.error(
+        "Por favor, digite um telefone válido incluindo o numero de DDD",
+      );
+      return;
+    }
+
     setLoading(true);
+    const cleanEmail = formData.email.trim().toLowerCase();
+
+    const cleanPhone = removeMask(formData.phone);
 
     try {
-      await addDoc(collection(db, "moradores"), {
+      const batch = writeBatch(db);
+
+      const newUserRef = doc(collection(db, "usuarios"));
+      const emailRef = doc(db, "list_email", cleanEmail);
+      const phoneRef = doc(db, "list_telefone", cleanPhone);
+      batch.set(newUserRef, {
         ...formData,
+        email: cleanEmail,
         createdAt: new Date(),
       });
 
-      alert("Cadastro realizado com sucesso!");
+      batch.set(emailRef, { usuarioId: newUserRef.id });
+      batch.set(phoneRef, { usuarioId: newUserRef.id });
+      await batch.commit();
+
+      toast.success("Cadastro realizado com sucesso!");
       onSuccess();
-    } catch (error) {
-      console.error("Erro ao salvar no Firestore:", error);
-      alert("Ocorreu um erro ao realizar o cadastro. Tente novamente.");
+    } catch (error: any) {
+      console.error("Erro ao salvar:", error);
+      if (error.code === "permission-denied") {
+        toast.error("Erro: E-mail ou telefone já cadastrado!");
+      } else {
+        toast.error("Ocorreu um erro ao realizar o cadastro. Tente novamente.");
+      }
     } finally {
       setLoading(false);
     }
