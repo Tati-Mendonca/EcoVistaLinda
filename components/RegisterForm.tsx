@@ -9,6 +9,7 @@ import {
   validPhoneNumber,
   validateFullName,
   isText,
+  validateEmail,
 } from "@/utils/formValidation";
 import { toast } from "react-hot-toast";
 
@@ -38,6 +39,11 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    if (!validateEmail(formData.email)) {
+      toast.error("Por favor, insira um e-mail válido!");
+      return;
+    }
 
     if (!isText(formData.name)) {
       toast.error("O campo nome deve conter apenas letras!");
@@ -78,13 +84,18 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
 
       toast.success("Cadastro realizado com sucesso!");
       onSuccess();
-    } catch (error: any) {
+    } catch (error) {
       console.error("Erro ao salvar:", error);
-      if (error.code === "permission-denied") {
-        toast.error("Erro: E-mail ou telefone já cadastrado!");
-      } else {
-        toast.error("Ocorreu um erro ao realizar o cadastro. Tente novamente.");
+      if (error && typeof error === "object" && "code" in error) {
+        const errorCode = (error as { code: string }).code;
+
+        if (errorCode === "permission-denied") {
+          toast.error("Erro: E-mail ou telefone já cadastrado!");
+          setLoading(false);
+          return;
+        }
       }
+      toast.error("Ocorreu um erro ao realizar o cadastro. Tente novamente ");
     } finally {
       setLoading(false);
     }

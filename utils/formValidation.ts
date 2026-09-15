@@ -1,3 +1,18 @@
+export const validateEmail = (email: string): boolean => {
+  const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return regexEmail.test(email);
+};
+
+
+export const validateFullName = (name: string): boolean => {
+  const fullName = name.trim();
+  
+  const splitNames = fullName.split(/\s+/);
+  
+  return splitNames.length >= 2 && splitNames.every(split => split.length >= 2);
+};
+
+
 export const removeMask = (phone: string): string => {
   if (!phone) return "";
   return phone.replace(/\D/g, "");
@@ -28,11 +43,5 @@ export const isText = (name: string): boolean => {
   return regexText.test(name);
 };
 
-export const validateFullName = (name: string): boolean => {
-  const fullName = name.trim();
-  
-  const splitNames = fullName.split(/\s+/);
-  
-  return splitNames.length >= 2 && splitNames.every(split => split.length >= 2);
-};
+
 
