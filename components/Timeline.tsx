@@ -1,11 +1,11 @@
-import { TimelineData } from "@/types/timeline";
+import { TimelineData } from "@/types";
 
 export default function Timeline({
-  servico,
-  descricao,
-  frequencia,
-  horario,
-  datas,
+  name,
+  description,
+  frequency,
+  time,
+  calculatedDates,
 }: TimelineData) {
   const formatarData = (dataStr: string, index: number) => {
     if (index === 0) {
@@ -24,27 +24,26 @@ export default function Timeline({
     );
   };
 
+  const datasParaExibir = calculatedDates || [];
+
   return (
-    <div className="bg-neutral/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-dark/5">
-      <header className="flex items-start justify-between gap-4 mb-6 border-b border-dark/10 pb-4 mb-6">
+    <div className="bg-neutral/80 backdrop-blur-sm rounded-2xl p-6 shadow-sm border border-dark/5 text-left">
+      <header className="flex items-start justify-between gap-4 border-b border-dark/10 pb-4 mb-6">
         <div>
           <h2 className="font-black text-xl text-dark flex items-center gap-2">
-            🚚 {servico}
+            🚚 {name}
           </h2>
-
-          <p className="text-sm text-dark/70 mt-1">{descricao}</p>
+          <p className="text-sm text-dark/70 mt-1">{description}</p>
         </div>
 
         <div className="text-right shrink-0">
-          <p className="font-bold mt-1 text-dark">{frequencia}</p>
-          <p className="text-sm text-dark">{horario}</p>
+          <p className="font-bold mt-1 text-dark">{frequency}</p>
+          <p className="text-sm text-dark">{time}</p>
         </div>
       </header>
 
-      {/* Calendário em Linha do Tempo */}
-
       <div className="relative pl-6 space-y-6 before:absolute before:bottom-2 before:top-2 before:left-2 before:w-0.5 before:bg-dark/20">
-        {datas.map((data, index) => (
+        {datasParaExibir.map((data, index) => (
           <div
             key={index}
             className="relative flex items-center justify-between group"
@@ -58,6 +57,7 @@ export default function Timeline({
             />
 
             <div>{formatarData(data, index)}</div>
+
             {index === 0 ? (
               <span className="text-xs text-eco font-semibold hidden sm:inline">
                 Próxima Coleta
@@ -69,6 +69,12 @@ export default function Timeline({
             )}
           </div>
         ))}
+
+        {datasParaExibir.length === 0 && (
+          <p className="text-xs text-dark/50 italic">
+            Nenhuma data agendada para os próximos dias.
+          </p>
+        )}
       </div>
     </div>
   );
