@@ -34,7 +34,7 @@ export default function Navbar({ onOpenModal }: LandingPageProps) {
               onClick={onOpenModal}
               className="inline-block bg-green-medium text-dark hover:bg-eco hover:scale-[1.02] active:scale-[0.98] font-semibold text-center px-14 py-4 rounded-full transition-all duration-200 shadow-md w-full sm:w-auto"
             >
-              Vemha Conhecer
+              Venha Fazer Parte
             </button>
           </div>
         </div>

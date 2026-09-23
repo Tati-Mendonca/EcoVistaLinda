@@ -72,29 +72,30 @@ export default function Card() {
   const sortAppointment = sortServices(appointmentDate);
 
   return (
-    <div className="space-y-1 w-full flex flex-col h-full">
+    <div className="w-full h-full min-h-0 flex flex-col">
       <Select
         street={street}
         selectedStreet={selectedStreet}
         onSelectStreet={handleSelectStreet}
       />
 
-      <div className="flex-1 flex flex-col min-h-55 pt-4">
-        {loading && <CardLoading />}
+      <div className="flex-1 min-h-0 pt-4">
+        {loading ? (
+          <CardLoading />
+        ) : (
+          <div className="space-y-4 max-h-[45vh] pr-2 overflow-y-auto custom-scrollbar">
+            {sortAppointment.length > 0 &&
+              sortAppointment.map((completDate, index) => (
+                <TimelineCard key={index} {...completDate} />
+              ))}
 
-        <div className="space-y-4 max-h-[45vh] pr-2 overflow-y-auto custom-scrollbar transition-all duration-300">
-          {!loading &&
-            sortAppointment.length > 0 &&
-            sortAppointment.map((completDate, index) => (
-              <TimelineCard key={index} {...completDate} />
-            ))}
-
-          {!loading && selectedStreet && sortAppointment.length === 0 && (
-            <p className="text-center text-sm text-dark/60 py-8">
-              Nenhum horário cadastrado para esta rua.
-            </p>
-          )}
-        </div>
+            {selectedStreet && sortAppointment.length === 0 && (
+              <p className="text-center text-sm text-dark/60 py-8">
+                Nenhum horário cadastrado para esta rua.
+              </p>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

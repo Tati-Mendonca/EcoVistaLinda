@@ -102,7 +102,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="p-6 space-y-4">
+    <form onSubmit={handleSubmit} className="p-5 sm:p-6 space-y-4">
       <div className="space-y-3">
         <input
           type="text"
