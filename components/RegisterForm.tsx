@@ -140,7 +140,7 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
         <input
           type="text"
           name="address"
-          placeholder="Endereço residencial (Opcional)"
+          placeholder="Endereço residencial"
           disabled={loading}
           value={formData.address}
           onChange={handleChange}
@@ -152,16 +152,28 @@ export default function RegisterForm({ onSuccess }: RegisterFormProps) {
         <label className="block text-xs font-semibold text-gray-600 px-1">
           Como deseja receber as informações?
         </label>
-        <select
-          name="contactMethod"
-          disabled={loading}
-          value={formData.contactMethod}
-          onChange={handleChange}
-          className="w-full border border-medium bg-gray-50 focus:border-green-medium outline-none rounded-full px-4 py-2.5 text-sm transition-all cursor-pointer disabled:opacity-50"
-        >
-          <option value="email">Receber por E-mail</option>
-          <option value="whatsapp">Receber por WhatsApp</option>
-        </select>
+        <div className="relative">
+          <select
+            name="contactMethod"
+            disabled={loading}
+            value={formData.contactMethod}
+            onChange={handleChange}
+            className="w-full appearance-none border border-medium bg-gray-50 focus:border-green-medium outline-none rounded-full px-4 py-2.5 pr-10 text-sm transition-all cursor-pointer disabled:opacity-50"
+          >
+            <option value="email">Receber por E-mail</option>
+            <option value="whatsapp">Receber por WhatsApp</option>
+          </select>
+
+          <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-4 text-dark/50">
+            <svg
+              className="fill-current h-4 w-4"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 20 20"
+            >
+              <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+            </svg>
+          </div>
+        </div>
       </div>
 
       <button

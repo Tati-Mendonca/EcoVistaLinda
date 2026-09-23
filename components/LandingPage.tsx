@@ -1,14 +1,13 @@
 import Image from "next/image";
-import logo from "../../public/pirituba.logo.png";
+import logo from "../public/pirituba.logo.png";
 
-interface NavbarProps {
+interface LandingPageProps {
   onOpenModal: () => void;
 }
 
-export default function Navbar({ onOpenModal }: NavbarProps) {
+export default function Navbar({ onOpenModal }: LandingPageProps) {
   return (
     <section className="w-full min-h-[calc(100vh)] grid grid-cols-1 md:grid-cols-2">
-      {/* Lado Esquerdo */}
       <div className="hidden sm:grid place-items-center min-h-64">
         <Image
           src={logo}
@@ -17,7 +16,6 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
         />
       </div>
 
-      {/* Lado Direito */}
       <aside className="bg-dark flex flex-col justify-center px-8 py-23 sm:px-16 lg:px-24 text-neutral">
         <div className="max-w-md mx-auto md:mx-0">
           <div className="text-neutral text-5xl mb-6 font-light">✱</div>
@@ -31,13 +29,12 @@ export default function Navbar({ onOpenModal }: NavbarProps) {
             descarte inadequado de resíduos em nosso bairro.
           </p>
 
-          {/* Botão de Ação */}
           <div>
             <button
               onClick={onOpenModal}
               className="inline-block bg-green-medium text-dark hover:bg-eco hover:scale-[1.02] active:scale-[0.98] font-semibold text-center px-14 py-4 rounded-full transition-all duration-200 shadow-md w-full sm:w-auto"
             >
-              Venha Fazer Parte
+              Vemha Conhecer
             </button>
           </div>
         </div>

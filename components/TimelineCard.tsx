@@ -1,6 +1,6 @@
 import { TimelineData } from "@/types";
 
-export default function Timeline({
+export default function TimelineCard({
   name,
   description,
   frequency,

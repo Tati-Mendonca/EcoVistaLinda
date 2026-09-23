@@ -1,5 +1,5 @@
 "use client";
-import Navbar from "@/components/layout/Navbar";
+import LandingPage from "@/components/LandingPage";
 import Modal from "@/components/Modal";
 import { useState } from "react";
 
@@ -8,7 +8,7 @@ export default function Home() {
   return (
     <>
       <main>
-        <Navbar onOpenModal={() => setIsModalOpen(true)} />
+        <LandingPage onOpenModal={() => setIsModalOpen(true)} />
       </main>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </>
