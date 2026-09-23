@@ -2,9 +2,7 @@
 
 Projeto acadêmico desenvolvido com o objetivo de aplicar conhecimentos de desenvolvimento web, banco de dados e tecnologia social na criação de soluções voltadas ao fortalecimento da comunidade local.
 
-![App Screenshot](https://dummyimage.com/468x300?text=App+Screenshot+Here)
-
-
+![App Screenshot](https://i.ibb.co/3yfcvjYS/home.png) 
 ## Sobre o Projeto
 
 O Eco Vista Linda é uma plataforma web desenvolvida para os moradores do Jardim Vista Linda, localizado no bairro de Pirituba, na cidade de São Paulo.
